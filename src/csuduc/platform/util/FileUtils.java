@@ -7,6 +7,9 @@
  */
 package csuduc.platform.util;
 
+import static java.nio.file.StandardCopyOption.COPY_ATTRIBUTES;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -18,6 +21,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -241,6 +247,100 @@ public class FileUtils {
 			}
 		}
 		return true;
+	}
+	
+
+	public static boolean folderCheckAndMake(String aDir){
+		java.io.File targetFolder = new java.io.File(aDir);
+		if (!targetFolder.exists()) {
+			try {
+				return targetFolder.mkdirs();
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+				return false;
+			}
+		}
+		return true;
+	}
+	/**
+	 * <p>
+	 * Title: copyFile<／p>
+	 * <p>
+	 * Description: <／p>
+	 * 
+	 * @param sourcePath
+	 * @param sourceName
+	 * @param targetPath
+	 * @param targetName
+	 * @param preserve
+	 * @return
+	 */
+	public static boolean copyFile(String sourcePath, String sourceName,
+			String targetPath, String targetName, boolean preserve) {
+		// target 不存在则先创建
+		if (!folderCheckAndMake(targetPath)) {
+			return false;
+		}
+		CopyOption[] options = (preserve) ? new CopyOption[] { COPY_ATTRIBUTES,
+				REPLACE_EXISTING } : new CopyOption[] { REPLACE_EXISTING };
+		//copy 失败则重复尝试3次
+		int cnt = 3;
+		while (cnt >0) {
+			try {
+				Files.copy(Paths.get(sourcePath + sourceName),
+						Paths.get(targetPath + targetName), options);
+				return true;
+			} catch (IOException x) {
+				System.out.println(String.format("Unable to copy file :\n from:%s \nto:%s \n errinfo: %s \n retry...", sourcePath
+						+ sourceName,targetPath+targetName, x));
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				cnt --;
+			}
+			
+		}
+		return false;
+
+	}
+	public static boolean deleteFile(String pathName){
+		File file = new File(pathName);
+		if (!file.exists()) {
+			System.out.println("file not exist,nothing to delete:"+pathName);
+			return true;
+		}
+		int cnt = 3;
+		while (cnt >0) {
+			try {
+				if (!file.delete()) {
+					cnt--;
+				}else{
+					return true;
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+				System.out.println(e.getMessage());
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException ee) {
+					// TODO Auto-generated catch block
+					ee.printStackTrace();
+				}
+				cnt--;
+			}
+		}
+		return false;
+
+	}
+	public static boolean cutFile(String sourcePath, String sourceName,
+			String targetPath, String targetName, boolean preserve){
+		return copyFile(sourcePath, sourceName, targetPath, targetName, preserve)
+				&&deleteFile(sourcePath+sourceName);
 	}
 	
 	/**
