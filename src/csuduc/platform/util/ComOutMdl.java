@@ -1,9 +1,9 @@
 package csuduc.platform.util;
 
 public class ComOutMdl<T> {
-	private final T mdl;
+	private T mdl;
 
-	public ComOutMdl(T mdl) {
+	public void set(T mdl) {
 		this.mdl = mdl;
 	}
 
