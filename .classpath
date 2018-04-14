@@ -18,17 +18,17 @@
 	<classpathentry kind="lib" path="refLib/commons-beanutils-1.9.3.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="E:/codingWorkspace/ThaiRiceRS/build-lib/jfinal20/freemarker-2.3.22.jar"/>
-	<classpathentry kind="lib" path="C:/Users/lyf/Downloads/javax.servlet-api-3.1.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/lyf/Downloads/javassist-3.7.1.GA.jar"/>
-	<classpathentry kind="lib" path="C:/Users/lyf/Downloads/flying-saucer-core-9.0.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/lyf/Downloads/flying-saucer-pdf-9.0.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/lyf/Downloads/itext-2.1.7.jar"/>
-	<classpathentry kind="lib" path="C:/Users/lyf/Downloads/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/lyf/Downloads/commons-beanutils-1.8.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/lyf/Downloads/commons-collections-3.2.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/lyf/Downloads/ezmorph-1.0.6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/lyf/Downloads/json-lib-2.4-jdk15.jar"/>
-	<classpathentry kind="lib" path="E:/codingWorkspace/ThaiRiceRS/WebContent/WEB-INF/lib/fastjson-1.2.7.jar"/>
+	<classpathentry kind="lib" path="refLib/freemarker-2.3.22.jar"/>
+	<classpathentry kind="lib" path="refLib/commons-beanutils-1.8.0.jar"/>
+	<classpathentry kind="lib" path="refLib/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="refLib/javax.servlet-api-3.1.0.jar"/>
+	<classpathentry kind="lib" path="refLib/javassist-3.7.1.GA.jar"/>
+	<classpathentry kind="lib" path="refLib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="refLib/flying-saucer-core-9.0.3.jar"/>
+	<classpathentry kind="lib" path="refLib/flying-saucer-pdf-9.0.3.jar"/>
+	<classpathentry kind="lib" path="refLib/itext-2.1.7.jar"/>
+	<classpathentry kind="lib" path="refLib/ezmorph-1.0.6.jar"/>
+	<classpathentry kind="lib" path="refLib/json-lib-2.4-jdk15.jar"/>
+	<classpathentry kind="lib" path="refLib/fastjson-1.2.7.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
