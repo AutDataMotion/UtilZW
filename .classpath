@@ -14,6 +14,8 @@
 	<classpathentry kind="lib" path="refLib/commons-codec-1.9.jar"/>
 	<classpathentry kind="lib" path="refLib/mail-1.4.7.jar"/>
 	<classpathentry kind="lib" path="refLib/commons-net-3.3.jar"/>
+	<classpathentry kind="lib" path="refLib/commons-lang3-3.7.jar"/>
+	<classpathentry kind="lib" path="refLib/commons-beanutils-1.9.3.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
