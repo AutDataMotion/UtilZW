@@ -29,6 +29,7 @@
 	<classpathentry kind="lib" path="refLib/itext-2.1.7.jar"/>
 	<classpathentry kind="lib" path="refLib/ezmorph-1.0.6.jar"/>
 	<classpathentry kind="lib" path="refLib/json-lib-2.4-jdk15.jar"/>
+	<classpathentry kind="lib" path="refLib/commons-email-1.5.jar"/>
 	<classpathentry kind="lib" path="refLib/fastjson-1.2.7.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
