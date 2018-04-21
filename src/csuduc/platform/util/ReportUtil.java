@@ -407,18 +407,18 @@ public class ReportUtil {
            return null;
        } 
    }
-   public static class Yield {  
+   public static class Area_Yield {  
 	    private String name;  
 	    private String code;  
 	    private String value;
-	    public Yield(String name, String code, String value) {  
+	    public Area_Yield(String name, String code, String value) {  
 	        super();  
 	        this.name = name;  
 	        this.code = code;  
 	        this.value = value;  
 	    }  
 	      
-	    public Yield() {  
+	    public Area_Yield() {  
 	        super();  
 	    }  
 	    public void setName(String name)
@@ -545,16 +545,16 @@ public class ReportUtil {
        }  
 		return list;
    }
-   public static List<Yield> getYield(String staData)
+   public static List<Area_Yield> getArea_Yield(String staData)
    {
-	   JSONArray  AreaArray=JSONArray.fromObject(staData);
+	   JSONArray  Area_YieldArray=JSONArray.fromObject(staData);
 	   
-	   List<Yield> list = new ArrayList<Yield>();
+	   List<Area_Yield> list = new ArrayList<Area_Yield>();
 	// JSONArray的遍历  
-       for (int i = 0; i < AreaArray.size(); i++) {  
-           JSONObject jsonObject2 = AreaArray.getJSONObject(i);  
+       for (int i = 0; i < Area_YieldArray.size(); i++) {  
+           JSONObject jsonObject2 = Area_YieldArray.getJSONObject(i);  
            //Area area = (Area)JSONObject.toBean(jsonObject2, Area.class); 
-           Yield yield = new Yield(jsonObject2.getString("name"),jsonObject2.getString("code"),jsonObject2.getString("value"));
+           Area_Yield yield = new Area_Yield(jsonObject2.getString("name"),jsonObject2.getString("code"),jsonObject2.getString("value"));
            //System.out.println(area);  
            list.add(yield);
        }  
