@@ -8,6 +8,7 @@
 package csuduc.platform.util;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -75,5 +76,9 @@ final public class ComUtil {
 	public static Double formatDouble(Double d) {
 		BigDecimal bg = new BigDecimal(d);
 		return bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+	}
+	private static DecimalFormat decimalFormat = new DecimalFormat("###################.###########");  
+	public static String formatDoubleToIntString(Double d){
+		return decimalFormat.format(d);
 	}
 }
