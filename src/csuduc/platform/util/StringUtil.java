@@ -36,11 +36,11 @@ import java.util.List;
  */
 public class StringUtil {
 
-	public synchronized static String getDateStr(String strFormat){
+	public  static String getDateStr(String strFormat){
 		
 		return new SimpleDateFormat(strFormat).format(new Date());
 	}
-	public synchronized static boolean isNullOrEmpty(String str) {
+	public  static boolean isNullOrEmpty(String str) {
 
 		if ((null == str) || (str.length() == 0)) {
 			return true;
@@ -48,7 +48,7 @@ public class StringUtil {
 
 		return false;
 	}
-	public synchronized static List<String> split(String src, char chr){
+	public  static List<String> split(String src, char chr){
 		if (isNullOrEmpty(src)) {
 			return null;
 		}
@@ -82,7 +82,7 @@ public class StringUtil {
 		}
 	}
 	
-	public synchronized static Date strToDate(String str,String format){
+	public  static Date strToDate(String str,String format){
 		try  
 		{  
 		    SimpleDateFormat sdf = new SimpleDateFormat(format);  
@@ -95,7 +95,7 @@ public class StringUtil {
 		}
 		
 	}
-	public synchronized static Timestamp strToTimeStamp(String str,String format){
+	public  static Timestamp strToTimeStamp(String str,String format){
 		try  
 		{  
 		    return new Timestamp(strToDate(str, format).getTime());
@@ -135,8 +135,19 @@ public class StringUtil {
 		for (String item : list) {
 			System.out.println(item);
 		}
+		String dataRowStr = "data[10][crdt_tp]";
+		String modelName = "data[10]";
+		System.out.println(dataRowStr.substring(modelName.length()+1, dataRowStr.length()-1));
 		
-//		String strDate1 = "20160513091839";
+		String modelPreStr = "";
+		if (dataRowStr.startsWith("data[") ) {
+			// 可以获得主键、但没做
+			int rightFlag = dataRowStr.indexOf(']');
+			modelPreStr = dataRowStr.substring(0, rightFlag+1);
+			System.out.println(modelPreStr);
+		}
+		
+		//		String strDate1 = "20160513091839";
 //		String strDate2 = "20160513091840";
 //		Date date1 = strToDate(strDate1, "yyyyMMddHHmmss");
 //		Date date2 = strToDate(strDate2, "yyyyMMddHHmmss");
