@@ -10,6 +10,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -30,6 +31,7 @@ import java.util.Map;
 import org.xhtmlrenderer.pdf.ITextFontResolver;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
+
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.pdf.BaseFont;
 
@@ -47,6 +49,11 @@ public class ReportUtil {
 	public static final String ftlname = "reportTemplate.ftl";
 	
 	public static final String reportParentPath = "files/productReport/";
+	
+	//数据产品的存储
+	public static final String productDataPath = "E:/thairiceproduct/";
+	//arcgisServer的工作路径
+	public static final String arcgisserver_shp_workspacePath = "E:/arcgisserver_shp_workspace/";
 	
 	public static final String mkUserReportDirectory(String userID,String ProductKind)
 	{
@@ -218,20 +225,70 @@ public class ReportUtil {
    }
        // 将服务器响应的数据流存到本地文件
    public static boolean saveData(InputStream is, File file) {
-       try (BufferedInputStream bis = new BufferedInputStream(is);
-               BufferedOutputStream bos = new BufferedOutputStream(
-                       new FileOutputStream(file));) {
+	   BufferedInputStream bis = null;
+	   BufferedOutputStream bos = null;
+       try{
+    	   bis = new BufferedInputStream(is);
+           bos = new BufferedOutputStream(new FileOutputStream(file));
            byte[] buffer = new byte[1024];
            int len = -1;
            while ((len = bis.read(buffer)) != -1) {
                bos.write(buffer, 0, len);
                bos.flush();
+               
            }
+           bos.close();
            return true;
        } catch (IOException e) {
            e.printStackTrace();
            return false;
-       }
+       }finally {  
+           try {  
+               if (bis != null) {  
+            	   bis.close();  
+               }  
+               if (bos != null) {  
+            	   bos.close();  
+               }  
+           } catch (IOException e) {  
+               e.printStackTrace();  
+           }  
+       }  
+   }
+   public static boolean fileCopy(File form,File to) {
+	   FileInputStream input = null;
+	   FileOutputStream output = null;
+	   try {
+		   input = new FileInputStream(form);
+		   output = new FileOutputStream(to);
+		   
+		   byte[] bt = new byte[1024];
+		   int realbyte = 0;
+		   while((realbyte = input.read(bt))>0) {
+			   output.write(bt, 0, realbyte);
+		   }
+		   output.close();
+		   return true;
+	   }catch(Exception e) {
+//		   input.close();  
+		   e.printStackTrace();
+		   return false;
+	   }finally {
+		   try {
+			   if (input != null) {  
+	                input.close();  
+	            }  
+	            if (output != null) {  
+	                output.close();  
+	            }
+//	            return true;
+		   }catch(Exception e) {
+			   e.printStackTrace();
+			   
+		   }
+		   
+	   }
+//	   return false;
    }
    public static String exportSimpleWord(Map<Object, Object> dataMap,String userID,String nowTime,String ProductKind,String areaCode,String productDate){  
 	   Writer out = null;
@@ -560,6 +617,73 @@ public class ReportUtil {
        }  
 		return list;
    }
+   
+	public static boolean getProductDataAndCopy2Workspace(String productKind,String productDate,String areaCode)
+	{
+		//数据产品的存储
+//		public static final String productDataPath = "E:/thairiceproduct/";
+		//arcgisServer的工作路径
+//		public static final String arcgisserver_shp_workspacePath = "E:/arcgisserver_shp_workspace/";
+		String originalProductDataPath = productDataPath+productKind+"/"+productDate;
+		String desProductDataPath = arcgisserver_shp_workspacePath+productKind;
+		//首先查看工作空间中是否已有
+		File desproductDatas = new File(desProductDataPath);
+		File[] desproductFiles = desproductDatas.listFiles(new FilenameFilter() {
 
+			@Override
+			public boolean accept(File dir, String name) {
+				// TODO Auto-generated method stub
+				if(name.lastIndexOf('.')>0)
+				{
+					int lastIndex = name.lastIndexOf('.');
+					String fileName = name.substring(0, lastIndex);
+					if(fileName.equals(productDate+'_'+areaCode))
+					{
+						return true;
+					}
+				}
+				return false;
+			}
+			
+		});
+		if(desproductFiles.length>0)
+		{
+			return true;
+		}
+		else {
+			File originalproductDatas = new File(originalProductDataPath);
+			if(originalproductDatas.isDirectory())
+			{
+				File[] productFiles = originalproductDatas.listFiles(new FilenameFilter() {
+
+					@Override
+					public boolean accept(File dir, String name) {
+						// TODO Auto-generated method stub
+						if(name.lastIndexOf('.')>0)
+						{
+							int lastIndex = name.lastIndexOf('.');
+							String fileName = name.substring(0, lastIndex);
+							if(fileName.equals(areaCode))
+							{
+								return true;
+							}
+						}
+						return false;
+					}
+					
+				});
+				for(File path:productFiles)
+				{
+//					System.out.println(path.getName());
+					String copyTo = desProductDataPath+productDate+'_'+path.getName();
+					File newfile = new File(copyTo);
+					fileCopy(path,newfile);
+				}
+				return true;
+			}
+		}
+		
+		return false;
+	}
    
 }
