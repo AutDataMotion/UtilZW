@@ -48,6 +48,9 @@ public class StringUtil {
 
 		return false;
 	}
+	public static boolean notEmpty(String s){
+		return !isNullOrEmpty(s);
+	}
 	public  static List<String> split(String src, char chr){
 		if (isNullOrEmpty(src)) {
 			return null;
@@ -146,7 +149,8 @@ public class StringUtil {
 			modelPreStr = dataRowStr.substring(0, rightFlag+1);
 			System.out.println(modelPreStr);
 		}
-		
+		StringBuilder whereStr = new StringBuilder();
+		System.out.println("whereStr len:"+whereStr.length() + " -"+whereStr.toString()+ "-");
 		//		String strDate1 = "20160513091839";
 //		String strDate2 = "20160513091840";
 //		Date date1 = strToDate(strDate1, "yyyyMMddHHmmss");
