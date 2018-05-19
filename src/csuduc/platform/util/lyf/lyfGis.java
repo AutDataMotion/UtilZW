@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.Reader;
 import java.io.Serializable;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,11 +18,16 @@ import org.geotools.data.FeatureWriter;
 import org.geotools.data.Transaction;
 import org.geotools.data.shapefile.ShapefileDataStore;
 import org.geotools.data.shapefile.ShapefileDataStoreFactory;
+import org.geotools.data.simple.SimpleFeatureCollection;
+import org.geotools.data.simple.SimpleFeatureIterator;
+import org.geotools.data.simple.SimpleFeatureSource;
 import org.geotools.feature.simple.SimpleFeatureTypeBuilder;
+import org.geotools.geojson.feature.FeatureJSON;
 import org.geotools.geojson.geom.GeometryJSON;
 import org.geotools.referencing.crs.DefaultGeographicCRS;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
+import org.opengis.referencing.crs.CoordinateReferenceSystem;
 
 import com.vividsolutions.jts.geom.LineString;
 import com.vividsolutions.jts.geom.MultiLineString;
@@ -34,7 +40,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 public class lyfGis {
-	 public static Map geojson2Shape(String GeoJsonstr, String shpPath){  
+	 public static Map<String,String> geojson2Shape(String GeoJsonstr, String fileName,String shpPath){  
 	        Map<String,String> map = new HashMap<String,String>();  
 	        GeometryJSON gjson = new GeometryJSON();  
 	        try{  
@@ -61,15 +67,18 @@ public class lyfGis {
 	                    geoType = MultiPolygon.class;  
 	            }  
 	            //创建shape文件对象  
-	            File file = new File(shpPath);  
+	            String shpFile_path = shpPath+fileName;
+	            File file = new File(shpFile_path);  
 	            Map<String, Serializable> params = new HashMap<String, Serializable>();  
 	            params.put(ShapefileDataStoreFactory.URLP.key, file.toURI().toURL());  
 	            ShapefileDataStore ds = (ShapefileDataStore) new ShapefileDataStoreFactory().createNewDataStore(params);  
 	            //定义图形信息和属性信息  
-	            SimpleFeatureTypeBuilder tb = new SimpleFeatureTypeBuilder();  
+	            SimpleFeatureTypeBuilder tb = new SimpleFeatureTypeBuilder(); 
+	            
 	            tb.setCRS(DefaultGeographicCRS.WGS84);  
 	            tb.setName("shapefile");  
-	            tb.add("the_geom", geoType);  
+	            tb.add("the_geom", geoType);
+	            tb.add("class", Long.class); 
 	            tb.add("POIID", Long.class);  
 	            ds.createSchema(tb.buildFeatureType());  
 	            //设置编码  
@@ -84,12 +93,13 @@ public class lyfGis {
 	                SimpleFeature feature = writer.next();  
 	                feature.setAttribute("the_geom",gjson.readMultiPolygon(reader));  
 	                feature.setAttribute("POIID",i);  
+	                feature.setAttribute("class",5); 
 	                writer.write();  
 	            }  
 	            writer.close();  
 	            ds.dispose();  
 	            map.put("status", "success");  
-	            map.put("message", shpPath);  
+	            map.put("message", shpFile_path);  
 	        }  
 	        catch(Exception e){  
 	            map.put("status", "failure");  
@@ -97,5 +107,61 @@ public class lyfGis {
 	            e.printStackTrace();  
 	        }  
 	        return map;  
-	    } 
+	    }
+	 	/** 
+	     * shp转换为Geojson 
+	     * @param shpPath 
+	     * @return 
+	     */  
+	   
+		public static Map<String,String> shape2Geojson(String shpPath){  
+	        Map<String,String> map = new HashMap<String,String>();  
+	          
+	        FeatureJSON fjson = new FeatureJSON();  
+	          
+	        try{  
+	            StringBuffer sb = new StringBuffer();  
+	            sb.append("{\"type\": \"FeatureCollection\",\"features\": ");  
+	              
+	            File file = new File(shpPath);  
+	            ShapefileDataStore shpDataStore = null;  
+	              
+	            shpDataStore = new ShapefileDataStore(file.toURI().toURL());  
+	            //设置编码  
+	            Charset charset = Charset.forName("GBK");  
+	            shpDataStore.setCharset(charset);  
+	            String typeName = shpDataStore.getTypeNames()[0];  
+	            SimpleFeatureSource featureSource = null;  
+	            featureSource =  shpDataStore.getFeatureSource (typeName);  
+	            SimpleFeatureCollection result = featureSource.getFeatures();  
+	            SimpleFeatureIterator itertor = result.features();  
+	            JSONArray array = new JSONArray();  
+	            while (itertor.hasNext())  
+	            {  
+	                SimpleFeature feature = itertor.next();  
+	                StringWriter writer = new StringWriter();  
+	                fjson.writeFeature(feature, writer);  
+	                
+	                JSONObject json = JSONObject.fromObject(writer.toString());  
+	                array.add(json);  
+	            }  
+	            itertor.close();  
+	            sb.append(array.toString());  
+	            sb.append("}");  
+	              
+	            //写入文件  
+//	            cm.append2File(jsonPath, sb.toString());  
+	              
+	            map.put("status", "success");  
+	            map.put("message", sb.toString());  
+	        }  
+	        catch(Exception e){  
+	            map.put("status", "failure");  
+	            map.put("message", e.getMessage());  
+	            e.printStackTrace();  
+	              
+	        }  
+	        return map;  
+	    }  
+	 
 }
