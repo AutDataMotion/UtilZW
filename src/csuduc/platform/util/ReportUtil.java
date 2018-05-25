@@ -625,7 +625,7 @@ public class ReportUtil {
 		//arcgisServer的工作路径
 //		public static final String arcgisserver_shp_workspacePath = "E:/arcgisserver_shp_workspace/";
 		String originalProductDataPath = productDataPath+productKind+"/"+productDate;
-		String desProductDataPath = arcgisserver_shp_workspacePath+productKind;
+		String desProductDataPath = arcgisserver_shp_workspacePath+productKind+"/";
 		//首先查看工作空间中是否已有
 		File desproductDatas = new File(desProductDataPath);
 		File[] desproductFiles = desproductDatas.listFiles(new FilenameFilter() {
@@ -646,7 +646,7 @@ public class ReportUtil {
 			}
 			
 		});
-		if(desproductFiles.length>0)
+		if(!productKind.equals("Area")&&desproductFiles.length>0)
 		{
 			return true;
 		}
@@ -685,5 +685,31 @@ public class ReportUtil {
 		
 		return false;
 	}
-   
+   public static File[] fileFilter(String fileDirpath,String filePrefix,String fileSuffix)
+   {
+	   File fileDir = new File(fileDirpath);
+	   if(fileDir.isDirectory())
+		{
+			File[] productFiles = fileDir.listFiles(new FilenameFilter() {
+
+				@Override
+				public boolean accept(File dir, String name) {
+					// TODO Auto-generated method stub
+					if(name.lastIndexOf('.')>0)
+					{
+						int lastIndex = name.lastIndexOf('.');
+						String fileName = name.substring(0, lastIndex);
+						if(fileName.equals(filePrefix))
+						{
+							return true;
+						}
+					}
+					return false;
+				}
+				
+			});
+			return productFiles;
+		}
+	   return null;
+   }
 }
