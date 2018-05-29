@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**  
  * 创建时间：2016年11月10日 下午6:15:15  
@@ -80,5 +81,23 @@ final public class ComUtil {
 	private static DecimalFormat decimalFormat = new DecimalFormat("###################.###########");  
 	public static String formatDoubleToIntString(Double d){
 		return decimalFormat.format(d);
+	}
+	
+	public static boolean notNullAndZero(Integer i){
+		return Objects.nonNull(i) && 0 != i;
+	}
+	
+	public static boolean notNullAndZero(Long i){
+		return Objects.nonNull(i) && 0 != i;
+	}
+	
+	
+	public static void main(String[] args){
+		Integer i1 = 0;
+		Integer i2 = null;
+		Integer i3 = 1;
+		System.out.println(notNullAndZero(i1));
+		System.out.println(notNullAndZero(i2));
+		System.out.println(notNullAndZero(i3));
 	}
 }

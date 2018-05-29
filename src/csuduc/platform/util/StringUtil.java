@@ -156,6 +156,10 @@ public class StringUtil {
 //		Date date1 = strToDate(strDate1, "yyyyMMddHHmmss");
 //		Date date2 = strToDate(strDate2, "yyyyMMddHHmmss");
 //		System.out.println(date1.getTime() - date2.getTime());
+		Integer i1 = 70;
+		Integer i2 = 90;
+		String strResCnt = String.format("%d%%(%d/%d)", i1*100/i2, i1, i2);
+		System.out.println(strResCnt);
 	}
 
 }
