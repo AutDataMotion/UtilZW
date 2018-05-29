@@ -66,7 +66,13 @@ public class lyfGis {
 	                case "MultiPolygon":  
 	                    geoType = MultiPolygon.class;  
 	            }  
-	            //创建shape文件对象  
+	            //创建文件夹
+	            File parentPath = new File(shpPath);
+	            if(!parentPath.exists())
+	            {
+	            	parentPath.mkdirs();
+	            }
+	            //创建shape文件对象
 	            String shpFile_path = shpPath+fileName;
 	            File file = new File(shpFile_path);  
 	            Map<String, Serializable> params = new HashMap<String, Serializable>();  
@@ -79,7 +85,7 @@ public class lyfGis {
 	            tb.setName("shapefile");  
 	            tb.add("the_geom", geoType);
 	            tb.add("class", Long.class); 
-	            tb.add("POIID", Long.class);  
+//	            tb.add("POIID", Long.class);  
 	            ds.createSchema(tb.buildFeatureType());  
 	            //设置编码  
 	            Charset charset = Charset.forName("GBK");  
@@ -92,7 +98,7 @@ public class lyfGis {
 	                Reader reader = new StringReader(strFeature);  
 	                SimpleFeature feature = writer.next();  
 	                feature.setAttribute("the_geom",gjson.readMultiPolygon(reader));  
-	                feature.setAttribute("POIID",i);  
+//	                feature.setAttribute("POIID",i);  
 	                feature.setAttribute("class",5); 
 	                writer.write();  
 	            }  
