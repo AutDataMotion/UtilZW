@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 /**  
  * 创建时间：2015年11月4日 下午10:51:51  
  * 项目名称：zwplatform   
@@ -51,6 +53,12 @@ public class StringUtil {
 	public static boolean notEmpty(String s){
 		return !isNullOrEmpty(s);
 	}
+	
+	public static boolean notEmptyOrDefault(String s, String defValue){
+		return notEmpty(s) && (!s.equals(defValue));
+	}
+	
+		
 	public  static List<String> split(String src, char chr){
 		if (isNullOrEmpty(src)) {
 			return null;
