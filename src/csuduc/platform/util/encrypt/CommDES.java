@@ -41,12 +41,12 @@ import sun.misc.BASE64Encoder;
  * @author ZhongwengHao
  * @date 2015年10月19日
  */
-public class Comm {
+public class CommDES {
 
 	/**
 	 * 
 	 */
-	public Comm() {
+	public CommDES() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -57,7 +57,7 @@ public class Comm {
 	 *            原始的SPKEY
 	 * @return byte[] 指定加密方式为md5后的byte[]
 	 */
-	private byte[] md5(String strSrc) {
+	private static byte[] md5(String strSrc) {
 		byte[] returnByte = null;
 		try {
 			MessageDigest md5 = MessageDigest.getInstance("MD5");
@@ -75,7 +75,7 @@ public class Comm {
 	 *            原始的SPKEY
 	 * @return byte[] 指定加密方式为md5后的byte[]
 	 */
-	private byte[] getEnKey(String spKey) {
+	private static byte[] getEnKey(String spKey) {
 		byte[] desKey = null;
 		try {
 			byte[] desKey1 = md5(spKey);
@@ -102,7 +102,7 @@ public class Comm {
 	 * @param byte[] enKey 3-DES加密密钥
 	 * @return byte[] 3-DES加密后的byte[]
 	 */
-	public byte[] Encrypt(byte[] src, byte[] enKey) {
+	public static byte[] Encrypt(byte[] src, byte[] enKey) {
 		byte[] encryptedData = null;
 		try {
 			DESedeKeySpec dks = new DESedeKeySpec(enKey);
@@ -125,7 +125,7 @@ public class Comm {
 	 *
 	 * @return String 进行编码后的字符串
 	 */
-	public String getBase64Encode(byte[] src) {
+	public static String getBase64Encode(byte[] src) {
 		String requestValue = "";
 		try {
 			BASE64Encoder base64en = new BASE64Encoder();
@@ -143,7 +143,7 @@ public class Comm {
 	 * 这是个不错的调试方法。我最后比较发现我生成的字符串唯一不同的 是多了换行。 我用c#语言也写了票根请求程序，没有发现这个问题。
 	 *
 	 */
-	private String filter(String str) {
+	private static String filter(String str) {
 		String output = null;
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < str.length(); i++) {
@@ -163,7 +163,7 @@ public class Comm {
 	 *
 	 * @return String 进行编码后的字符串
 	 */
-	public String getURLEncode(String src) {
+	public static String getURLEncode(String src) {
 		String requestValue = "";
 		try {
 			requestValue = URLEncoder.encode(src);
@@ -182,7 +182,7 @@ public class Comm {
 	 *            spkey分配的SPKEY
 	 * @return String 3-DES加密后的String
 	 */
-	public String get3DESEncrypt(String src, String spkey) {
+	public static String get3DESEncrypt(String src, String spkey) {
 		String requestValue = "";
 		try {
 			// 得到3-DES的密钥匙
@@ -212,7 +212,7 @@ public class Comm {
 	 *
 	 * @return String 进行解码后的字符串
 	 */
-	public String getURLDecoderdecode(String src) {
+	public static String getURLDecoderdecode(String src) {
 		String requestValue = "";
 		try {
 			requestValue = URLDecoder.decode(src);
@@ -231,7 +231,7 @@ public class Comm {
 	 *            spkey分配的SPKEY
 	 * @return String 3-DES解密后的String
 	 */
-	public String deCrypt(byte[] debase64, String spKey) {
+	public static String deCrypt(byte[] debase64, String spKey) {
 		String strDe = null;
 		Cipher cipher = null;
 		try {
@@ -260,7 +260,7 @@ public class Comm {
 	 *            spkey分配的SPKEY
 	 * @return String 3-DES加密后的String
 	 */
-	public String get3DESDecrypt(String src, String spkey) {
+	public static String get3DESDecrypt(String src, String spkey) {
 		String requestValue = "";
 		try {
 			// 得到3-DES的密钥匙
@@ -278,13 +278,12 @@ public class Comm {
 	}
 
 	public static void main(String[] args) {
-		Comm test = new Comm();
+		CommDES test = new CommDES();
 		String oldString = "毒素发asfd忠翁123";
-		String SPKEY = "1212354";
-		System.out.println("1。分配的SPKEY为: " + SPKEY);
-		System.out.println("2。的内容为: " + oldString);
+		String SPKEY = "aD0jl#159";
+		System.out.println("1分配的SPKEY为: " + SPKEY);
+		System.out.println("2的内容为: " + oldString);
 		String reValue = test.get3DESEncrypt(oldString, SPKEY);
-		reValue = reValue.trim().intern();
 		System.out.println("进行3-DES加密后的内容: " + reValue);
 		String reValue2 = test.get3DESDecrypt(reValue, SPKEY);
 		System.out.println("进行3-DES解密后的内容: " + reValue2);
