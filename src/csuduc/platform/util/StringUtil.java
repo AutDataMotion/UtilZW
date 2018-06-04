@@ -50,6 +50,26 @@ public class StringUtil {
 
 		return false;
 	}
+	
+	public static boolean validateLength(String str, int min, int max){
+		if (min < 1) {
+			throw new IllegalArgumentException("min length must > 0");
+		}
+		if (max < min) {
+			throw new IllegalArgumentException("max length must > min length");
+		}
+		if (isNullOrEmpty(str))  return false;
+		if (str.length() < min || str.length() > max) {
+			return false;
+		}
+		return true;
+	}
+	
+	public static boolean invalidateLength(String str, int min, int max){
+		return !validateLength(str, min, max);
+	}
+	
+	
 	public static boolean notEmpty(String s){
 		return !isNullOrEmpty(s);
 	}
@@ -168,6 +188,9 @@ public class StringUtil {
 		Integer i2 = 90;
 		String strResCnt = String.format("%d%%(%d/%d)", i1*100/i2, i1, i2);
 		System.out.println(strResCnt);
+		
+		String str20180605_1 = "asdfa.xls";
+		System.out.println(str20180605_1.substring(str20180605_1.length()-3));
 	}
 
 }

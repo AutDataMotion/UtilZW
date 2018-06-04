@@ -106,7 +106,6 @@ public class DESUtil {
         for (int i = 0; i < results.length; i++) {
             System.out.print(results[i] + " ");
         }
-        System.out.println();
         // 执行加密操作。加密后的结果通常都会用Base64编码进行传输 
         return Base64.encodeBase64String(results);
     }

@@ -279,7 +279,7 @@ public class CommDES {
 
 	public static void main(String[] args) {
 		CommDES test = new CommDES();
-		String oldString = "毒素发asfd忠翁123";
+		String oldString = "翁123";
 		String SPKEY = "aD0jl#159";
 		System.out.println("1分配的SPKEY为: " + SPKEY);
 		System.out.println("2的内容为: " + oldString);
