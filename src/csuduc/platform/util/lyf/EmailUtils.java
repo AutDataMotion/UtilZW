@@ -16,13 +16,15 @@ import org.apache.log4j.Logger;
 
 public class EmailUtils {
 		private static Logger LOG = Logger.getLogger(EmailUtils.class);
-	   private static String host = "smtp.163.com";
-	   private static int port = 25;
-//	   private static String userName = "17611505056@163.com";
-//	   private static String password = "a@1234567";
-	   private static String userName = "nanjing2007@163.com";
-	   private static String password = "lingyun625107";
+//	   private static String host = "smtp.163.com";
+//	   private static int port = 25;
+	private static String host = "smtp.qq.com";
+	private static int port = 587;
 
+//	   private static String userName = "nanjing2007@163.com";
+//	   private static String password = "lingyun625107";
+		private static String userName = "513315356@qq.com";
+	   private static String password = "liuyunfei0556";
 	   /**
 	    * 初始化发送邮件参数
 	    * 
