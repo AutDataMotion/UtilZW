@@ -13,6 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.omg.CORBA.PUBLIC_MEMBER;
 
@@ -64,7 +66,52 @@ public class StringUtil {
 		}
 		return true;
 	}
-	
+	/** 
+     * 去除字符串中所包含的空格（包括:空格(全角，半角)、制表符、换页符等） 
+     * @param s 
+     * @return 
+     */  
+    public static String removeAllBlank(String s){  
+        String result = "";  
+        if(null!=s && !"".equals(s)){  
+            result = s.replaceAll("[　*| *| *|//s*]*", "");  
+        }  
+        return result;  
+    }  
+    public static String replaceBlank(String str){
+        String dest = null;
+        if(str == null){
+            return dest;
+        }else{
+            Pattern p = Pattern.compile("\\s*|\t|\r|\n");
+            Matcher m = p.matcher(str);
+            dest = m.replaceAll("");
+            return dest;
+        }
+    }
+    /** 
+     * 去除字符串中头部和尾部所包含的空格（包括:空格(全角，半角)、制表符、换页符等） 
+     * @param s 
+     * @return 
+     */  
+    public static String trim(String s){
+    	String result = "";  
+        if(null!=s && !"".equals(s)){  
+            result = s.replaceAll("^[　*| *| *|//s*]*", "").replaceAll("[　*| *| *|//s*]*$", "");  
+        }  
+        return result;  
+    }  
+    /** 
+     * 去excel中包含的特殊空格
+     * @param s 
+     * @return 
+     */  
+    public static String replaceExcelBlank(String s){
+    	
+    	String res = s.replace(String.valueOf((char)160),"");
+    	
+        return replaceBlank(res);  
+    }  
 	public static boolean invalidateLength(String str, int min, int max){
 		return !validateLength(str, min, max);
 	}
