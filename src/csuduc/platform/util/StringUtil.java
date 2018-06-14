@@ -107,7 +107,9 @@ public class StringUtil {
      * @return 
      */  
     public static String replaceExcelBlank(String s){
-    	
+    	if (isNullOrEmpty(s)) {
+			return "";
+		}
     	String res = s.replace(String.valueOf((char)160),"");
     	
         return replaceBlank(res);  
