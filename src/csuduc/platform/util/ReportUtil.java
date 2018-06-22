@@ -618,7 +618,7 @@ public class ReportUtil {
 		return list;
    }
    
-	public static boolean getProductDataAndCopy2Workspace(String productKind,String productDate,String areaCode)
+	public static boolean getProductDataAndCopy2Workspace(String productKind,String productDate,String prov_code)
 	{
 		//数据产品的存储
 //		public static final String productDataPath = "E:/thairiceproduct/";
@@ -637,7 +637,7 @@ public class ReportUtil {
 				{
 					int lastIndex = name.lastIndexOf('.');
 					String fileName = name.substring(0, lastIndex);
-					if(fileName.equals(productDate+'_'+areaCode))
+					if(fileName.equals(productDate+'_'+prov_code))
 					{
 						return true;
 					}
@@ -663,7 +663,7 @@ public class ReportUtil {
 						{
 							int lastIndex = name.lastIndexOf('.');
 							String fileName = name.substring(0, lastIndex);
-							if(fileName.equals(areaCode))
+							if(fileName.equals(prov_code))
 							{
 								return true;
 							}
