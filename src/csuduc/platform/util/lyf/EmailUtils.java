@@ -18,13 +18,16 @@ public class EmailUtils {
 		private static Logger LOG = Logger.getLogger(EmailUtils.class);
 //	   private static String host = "smtp.163.com";
 //	   private static int port = 25;
-	private static String host = "smtp.qq.com";
-	private static int port = 587;
+//	private static String host = "smtp.qq.com";
+//	private static int port = 587;
+		private static String host = "smtp.263.net";
+		private static int port = 465;
 
 //	   private static String userName = "nanjing2007@163.com";
 //	   private static String password = "lingyun625107";
-		private static String userName = "374797614@qq.com";
-	   private static String password = "hankerjay12";
+		private static String userName = "cadep@chinada.cn";
+	   private static String password = "cleanmedal321";
+	  
 	   /**
 	    * 初始化发送邮件参数
 	    * 
