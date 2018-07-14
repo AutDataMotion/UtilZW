@@ -51,5 +51,8 @@
 	<classpathentry kind="lib" path="refLib/jscience-4.3.1-sources.jar"/>
 	<classpathentry kind="lib" path="refLib/jsr-275-1.0-beta-2.jar"/>
 	<classpathentry kind="lib" path="refLib/jsr305-3.0.0.jar"/>
+	<classpathentry kind="lib" path="refLib/gt-main-17.4.jar"/>
+	<classpathentry kind="lib" path="refLib/gt-referencing-17.4.jar"/>
+	<classpathentry kind="lib" path="refLib/gt-data-17.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
