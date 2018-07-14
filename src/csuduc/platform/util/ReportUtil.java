@@ -504,7 +504,7 @@ public class ReportUtil {
 	    }
 	//生成set和get方法,此处省略  
 	}
-   public static class Drought {  
+   public static class Drought_Growth {  
 	    private String name;  
 	    private String code;  
 	    private String moist;
@@ -512,7 +512,7 @@ public class ReportUtil {
 	    private String lightdrought;
 	    private String middling;
 	    private String heavy;
-	    public Drought(String name, String code, String moist,String normal,String lightdrought,String middling,String heavy) {  
+	    public Drought_Growth(String name, String code, String moist,String normal,String lightdrought,String middling,String heavy) {  
 	        super();  
 	        this.name = name;  
 	        this.code = code;  
@@ -523,7 +523,7 @@ public class ReportUtil {
 	        this.heavy = heavy;
 	    }  
 	      
-	    public Drought() {  
+	    public Drought_Growth() {  
 	        super();  
 	    }  
 	    public void setName(String name)
@@ -584,16 +584,16 @@ public class ReportUtil {
 	    }
 	//生成set和get方法,此处省略  
 	}
-   public static List<Drought> getDrought(String staData)
+   public static List<Drought_Growth> getDrought_Growth(String staData)
    {
 	   JSONArray  AreaArray=JSONArray.fromObject(staData);
 	   
-	   List<Drought> list = new ArrayList<Drought>();
+	   List<Drought_Growth> list = new ArrayList<Drought_Growth>();
 	// JSONArray的遍历  
        for (int i = 0; i < AreaArray.size(); i++) {  
            JSONObject jsonObject2 = AreaArray.getJSONObject(i);  
            //Area area = (Area)JSONObject.toBean(jsonObject2, Area.class); 
-           Drought drought = new Drought(jsonObject2.getString("name"),jsonObject2.getString("code"),
+           Drought_Growth drought = new Drought_Growth(jsonObject2.getString("name"),jsonObject2.getString("code"),
         		   jsonObject2.getJSONArray("value").getString(0),jsonObject2.getJSONArray("value").getString(1),
         		   jsonObject2.getJSONArray("value").getString(2),jsonObject2.getJSONArray("value").getString(3),
         		   jsonObject2.getJSONArray("value").getString(4));
