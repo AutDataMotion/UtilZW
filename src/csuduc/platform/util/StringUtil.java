@@ -127,6 +127,9 @@ public class StringUtil {
 		return notEmpty(s) && (!s.equals(defValue));
 	}
 	
+	public static boolean notEmptyOrLikeDefault(String s, String defValue){
+		return notEmpty(s) && (s.indexOf(defValue) == -1);
+	}
 		
 	public  static List<String> split(String src, char chr){
 		if (isNullOrEmpty(src)) {
