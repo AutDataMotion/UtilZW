@@ -84,7 +84,7 @@ public class lyfGis {
 	            tb.setCRS(DefaultGeographicCRS.WGS84);  
 	            tb.setName("shapefile");  
 	            tb.add("the_geom", geoType);
-	            tb.add("class", Long.class); 
+	            tb.add("value", Long.class); 
 //	            tb.add("POIID", Long.class);  
 	            ds.createSchema(tb.buildFeatureType());  
 	            //设置编码  
@@ -99,7 +99,7 @@ public class lyfGis {
 	                SimpleFeature feature = writer.next();  
 	                feature.setAttribute("the_geom",gjson.readMultiPolygon(reader));  
 //	                feature.setAttribute("POIID",i);  
-	                feature.setAttribute("class",5); 
+	                feature.setAttribute("value",5); 
 	                writer.write();  
 	            }  
 	            writer.close();  
