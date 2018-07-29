@@ -40,6 +40,10 @@ import org.omg.CORBA.PUBLIC_MEMBER;
  */
 public class StringUtil {
 
+	public final static String getStringLikeLeft(String s) {
+		return s + "%";
+	}
+	
 	public  static String getDateStr(String strFormat){
 		
 		return new SimpleDateFormat(strFormat).format(new Date());
