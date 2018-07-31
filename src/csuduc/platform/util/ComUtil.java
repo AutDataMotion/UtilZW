@@ -8,6 +8,7 @@
 package csuduc.platform.util;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
@@ -78,21 +79,22 @@ final public class ComUtil {
 		BigDecimal bg = new BigDecimal(d);
 		return bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 	}
-	private static DecimalFormat decimalFormat = new DecimalFormat("###################.###########");  
-	public static String formatDoubleToIntString(Double d){
+
+	private static DecimalFormat decimalFormat = new DecimalFormat("###################.###########");
+
+	public static String formatDoubleToIntString(Double d) {
 		return decimalFormat.format(d);
 	}
-	
-	public static boolean notNullAndZero(Integer i){
+
+	public static boolean notNullAndZero(Integer i) {
 		return Objects.nonNull(i) && 0 != i;
 	}
-	
-	public static boolean notNullAndZero(Long i){
+
+	public static boolean notNullAndZero(Long i) {
 		return Objects.nonNull(i) && 0 != i;
 	}
-	
-	
-	public static void main(String[] args){
+
+	public static void main(String[] args) {
 		Integer i1 = 0;
 		Integer i2 = null;
 		Integer i3 = 1;

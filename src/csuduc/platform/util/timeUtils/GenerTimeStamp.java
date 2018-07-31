@@ -38,6 +38,9 @@ import java.util.Date;
 public class GenerTimeStamp {
 	private static SimpleDateFormat df = new SimpleDateFormat(
 			"yyyy-MM-dd HH:mm:ss");
+	
+	private static SimpleDateFormat df_date = new SimpleDateFormat(
+			"yyyy-MM-dd");
 
 	public synchronized static Timestamp dateToTimeStamp(Date date) {
 		String time = df.format(date);
@@ -58,6 +61,10 @@ public class GenerTimeStamp {
 			return null;
 		}
 	}
+	
+	public static String pickDateStr(Timestamp timestamp){
+		return df_date.format(timestamp);
+	}
 	/**
 	 * <p>
 	 * Title: main<／p>
@@ -70,7 +77,12 @@ public class GenerTimeStamp {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		String dtstr1 = "";
+		Timestamp timestamp = dateToTimeStamp(new Date());
+		dtstr1 = TimestampToStr(timestamp);
+		System.out.println(dtstr1);
+		String str2 = pickDateStr(timestamp);
+		System.out.println(str2);
 	}
 
 }
