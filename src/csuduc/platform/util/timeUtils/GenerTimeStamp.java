@@ -36,11 +36,9 @@ import java.util.Date;
  * @date 2015年11月9日
  */
 public class GenerTimeStamp {
-	private static SimpleDateFormat df = new SimpleDateFormat(
-			"yyyy-MM-dd HH:mm:ss");
+	private static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
-	private static SimpleDateFormat df_date = new SimpleDateFormat(
-			"yyyy-MM-dd");
+	private static ThreadLocal<SimpleDateFormat>  df_date = new ThreadLocal<SimpleDateFormat>();
 
 	public synchronized static Timestamp dateToTimeStamp(Date date) {
 		String time = df.format(date);
@@ -62,8 +60,12 @@ public class GenerTimeStamp {
 		}
 	}
 	
+	// df_date
 	public static String pickDateStr(Timestamp timestamp){
-		return df_date.format(timestamp);
+		if (null == df_date.get()) {
+			df_date.set(new SimpleDateFormat("yyyy-MM-dd"));
+		}
+		return df_date.get().format(timestamp);
 	}
 	/**
 	 * <p>
