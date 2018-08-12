@@ -9,6 +9,7 @@ package csuduc.platform.util.timeUtils;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**  
@@ -36,34 +37,56 @@ import java.util.Date;
  * @date 2015年11月9日
  */
 public class GenerTimeStamp {
-	private static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
+	private final static String DF_yyyy_MM_dd_HHmmss = "yyyy-MM-dd HH:mm:ss";
+	private final static String DF_yyyy_MM_dd = "yyyy-MM-dd";
+	private final static String DF_yyyyMMdd = "yyyyMMdd";
+	
+	private static ThreadLocal<SimpleDateFormat>  df_datetime = new ThreadLocal<SimpleDateFormat>();
+
 	private static ThreadLocal<SimpleDateFormat>  df_date = new ThreadLocal<SimpleDateFormat>();
 
 	public synchronized static Timestamp dateToTimeStamp(Date date) {
-		String time = df.format(date);
+		String time = fetchDateFormatDatetime().format(date);
 		return Timestamp.valueOf(time);
 	}
-
+	public static String pickYearMonthDay(int year, Timestamp ts){
+		Calendar c = Calendar.getInstance();
+		c.setTime(ts);
+		return String.format("%d%d%d", year, c.get(Calendar.MONTH)+1, c.get(Calendar.DATE));
+	}
+	
+	public static int fetchYearByStep(int step){
+		Calendar c = Calendar.getInstance();
+		c.setTime(new Date());
+		c.add(Calendar.YEAR, step);
+		return c.get(Calendar.YEAR);
+	}
+	
 	public long getSystemTimeMillisNow() {
-
 		return System.currentTimeMillis();
+	}
+	
+	public static SimpleDateFormat fetchDateFormatDatetime(){
+		if (null == df_datetime.get()) {
+			df_datetime.set(new SimpleDateFormat(DF_yyyy_MM_dd_HHmmss));
+		}
+		return df_datetime.get();
 	}
 
 	public synchronized static String TimestampToStr(Timestamp timestamp) {
-		try {
-			// 方法一
-			return df.format(timestamp);
+		try {	
+			return fetchDateFormatDatetime().format(timestamp);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			return "";
 		}
 	}
 	
 	// df_date
 	public static String pickDateStr(Timestamp timestamp){
 		if (null == df_date.get()) {
-			df_date.set(new SimpleDateFormat("yyyy-MM-dd"));
+			df_date.set(new SimpleDateFormat(DF_yyyy_MM_dd));
 		}
 		return df_date.get().format(timestamp);
 	}
