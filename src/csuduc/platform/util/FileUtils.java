@@ -27,7 +27,12 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
+import javax.swing.event.ListSelectionEvent;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.bouncycastle.jcajce.provider.asymmetric.dsa.DSASigner.noneDSA;
 
@@ -55,7 +60,28 @@ public class FileUtils {
 
 	private static Logger logger = Logger.getLogger(FileUtils.class);
 	
-	 
+	public static List<File> getFiles(String path) {
+	    List<File> files = new ArrayList<File>();
+	    File file = new File(path);
+	    File[] tempList = file.listFiles();
+
+	    for (int i = 0; i < tempList.length; i++) {
+	        if (tempList[i].isFile()) {
+	            System.out.println("文件：" + tempList[i]);
+	            files.add(tempList[i]);
+	        }
+	        if (tempList[i].isDirectory()) {
+	        }
+	    }
+	    return files;
+	}
+	public static List<String> getFileNames(String path){
+		List<File> files = getFiles(path);
+		if (CollectionUtils.isEmpty(files)) {
+			return new ArrayList<>();
+		}
+		return files.stream().map(e->e.getName()).collect(Collectors.toList());
+	}
 	/**
 	 * @param filePath 
 	 * @param fileName
