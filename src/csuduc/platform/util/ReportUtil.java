@@ -611,13 +611,54 @@ public class ReportUtil {
        for (int i = 0; i < Area_YieldArray.size(); i++) {  
            JSONObject jsonObject2 = Area_YieldArray.getJSONObject(i);  
            //Area area = (Area)JSONObject.toBean(jsonObject2, Area.class); 
-           Area_Yield yield = new Area_Yield(jsonObject2.getString("name"),jsonObject2.getString("code"),jsonObject2.getString("value"));
+           Area_Yield yield = new Area_Yield(jsonObject2.getString("name"),jsonObject2.getString("code"),Num2EnFormat(jsonObject2.getString("value")));
            //System.out.println(area);  
            list.add(yield);
        }  
 		return list;
    }
-   
+   public static String Num2EnFormat(String iValue)
+	{
+//		var iValue = 20002365879.12; //要转换的数字
+		String sValue = iValue;
+		String needProcessSvalue = (sValue.indexOf('.')>0)?sValue.substring(0,sValue.indexOf('.')):sValue;//'20002365879'
+		String floatNumStr = (sValue.indexOf('.')>0)?sValue.substring(sValue.indexOf('.')):"";//'.12'
+		List<String> aValue = new ArrayList<String>();
+		int iNum = needProcessSvalue.length()%3;
+		String aResult; //转换结果
+//		int index = 0;
+		if(needProcessSvalue.length()<=3){
+		    return sValue;
+		}else{
+		    if(iNum == 0){
+			    for(int i=0; i<needProcessSvalue.length(); i=i+3){
+//			        aValue.add(needProcessSvalue.charAt(i)+needProcessSvalue[i+1]+needProcessSvalue[i+2]);
+//			        index++;
+			    	aValue.add(needProcessSvalue.substring(i,i+3));
+			    }
+			}else if(iNum == 1){
+				aValue.add(needProcessSvalue.substring(0,1));
+//			    index = 1;
+			    for(int i=1; i<needProcessSvalue.length(); i=i+3){
+//			    	aValue.add(needProcessSvalue[i]+needProcessSvalue[i+1]+needProcessSvalue[i+2]);
+//			        index++;
+			    	aValue.add(needProcessSvalue.substring(i,i+3));
+			    }
+			}
+			else if(iNum == 2){
+				aValue.add(needProcessSvalue.substring(0,2));
+//				aValue.add(needProcessSvalue[0]+needProcessSvalue[1]);
+//			    index = 1;
+			    for(int i=2; i<needProcessSvalue.length(); i=i+3){
+//			    	aValue.add(needProcessSvalue[i]+needProcessSvalue[i+1]+needProcessSvalue[i+2]);
+//			        index++;
+			    	aValue.add(needProcessSvalue.substring(i,i+3));
+			    }
+			}
+		aResult = String.join(",",aValue);
+		return aResult.toString()+floatNumStr;//输出20,002,365,879
+		}   
+	}
 	public static boolean getProductDataAndCopy2Workspace(String productKind,String productDate,String prov_code)
 	{
 		//数据产品的存储
