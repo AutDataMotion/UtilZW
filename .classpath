@@ -41,7 +41,6 @@
 	<classpathentry kind="lib" path="refLib/grib-4.6.6.jar"/>
 	<classpathentry kind="lib" path="refLib/gt-api-17.4.jar"/>
 	<classpathentry kind="lib" path="refLib/gt-geometry-17.4.jar"/>
-	<classpathentry kind="lib" path="refLib/gt-shapefile-17.4.jar"/>
 	<classpathentry kind="lib" path="refLib/gt-ogr-bridj-17.4.jar"/>
 	<classpathentry kind="lib" path="refLib/gt-ogr-core-17.4.jar"/>
 	<classpathentry kind="lib" path="refLib/gt-ogr-jni-17.4.jar"/>
@@ -54,5 +53,7 @@
 	<classpathentry kind="lib" path="refLib/gt-main-17.4.jar"/>
 	<classpathentry kind="lib" path="refLib/gt-referencing-17.4.jar"/>
 	<classpathentry kind="lib" path="refLib/gt-data-17.4.jar"/>
+	<classpathentry kind="lib" path="refLib/gt-shapefile-17.4.jar"/>
+	<classpathentry kind="lib" path="refLib/gt-opengis-17.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
