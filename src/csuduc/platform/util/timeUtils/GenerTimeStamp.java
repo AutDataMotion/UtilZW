@@ -74,7 +74,7 @@ public class GenerTimeStamp {
 		return df_datetime.get();
 	}
 
-	public synchronized static String TimestampToStr(Timestamp timestamp) {
+	public  static String TimestampToStr(Timestamp timestamp) {
 		try {	
 			return fetchDateFormatDatetime().format(timestamp);
 		} catch (Exception e) {
