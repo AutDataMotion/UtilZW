@@ -90,6 +90,17 @@ public class GenerTimeStamp {
 		}
 		return df_date.get().format(timestamp);
 	}
+	
+	public static String pickDateStrKey(Timestamp timestamp){
+		if (null == df_date.get()) {
+			df_date.set(new SimpleDateFormat(DF_yyyyMMdd));
+		}
+		return df_date.get().format(timestamp);
+	}
+	
+	public static Timestamp DateKeyToTimestamp(String datekey){
+		return Timestamp.valueOf(String.format("%s 00:00:00", datekey));
+	}
 	/**
 	 * <p>
 	 * Title: main<／p>
@@ -108,6 +119,10 @@ public class GenerTimeStamp {
 		System.out.println(dtstr1);
 		String str2 = pickDateStr(timestamp);
 		System.out.println(str2);
+		
+		String dateStr1 = "2018-08-09 00:00:00";
+		Timestamp timestamp2 = Timestamp.valueOf(dateStr1);
+		System.out.println(timestamp2);
 	}
 
 }
