@@ -1,8 +1,8 @@
 /**
- * <p>title:GenerTimeStamp.java<／p>
- * <p>Description: <／p>
- * @date:2015年11月9日下午4:50:02
- * @author：ZhongwengHao email:zhongweng.hao@qq.com
+ * <p>title:GenerTimeStamp.java<锛弍>
+ * <p>Description: <锛弍>
+ * @date:2015骞�11鏈�9鏃ヤ笅鍗�4:50:02
+ * @author锛歓hongwengHao email:zhongweng.hao@qq.com
  * @version 1.0
  */
 package csuduc.platform.util.timeUtils;
@@ -13,28 +13,28 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**  
- * 创建时间：2015年11月9日 下午4:50:02  
- * 项目名称：UtilZW   
- * 文件名称：GenerTimeStamp.java  
- * 类说明：  
+ * 鍒涘缓鏃堕棿锛�2015骞�11鏈�9鏃� 涓嬪崍4:50:02  
+ * 椤圭洰鍚嶇О锛歎tilZW   
+ * 鏂囦欢鍚嶇О锛欸enerTimeStamp.java  
+ * 绫昏鏄庯細  
  *
  * Modification History:   
  * Date        Author         Version      Description   
  * ----------------------------------------------------------------- 
- * 2015年11月9日     Zhongweng       1.0         1.0 Version   
+ * 2015骞�11鏈�9鏃�     Zhongweng       1.0         1.0 Version   
  */
 /**
  * <p>
- * Title: GenerTimeStamp<／p>
+ * Title: GenerTimeStamp<锛弍>
  * <p>
  * Description:
  * 
  * 
- * //方法 一 System.currentTimeMillis(); 最快 //方法 二
- * Calendar.getInstance().getTimeInMillis(); //方法 三 new Date().getTime(); <／p>
+ * //鏂规硶 涓� System.currentTimeMillis(); 鏈�蹇� //鏂规硶 浜�
+ * Calendar.getInstance().getTimeInMillis(); //鏂规硶 涓� new Date().getTime(); <锛弍>
  * 
  * @author ZhongwengHao
- * @date 2015年11月9日
+ * @date 2015骞�11鏈�9鏃�
  */
 public class GenerTimeStamp {
 	
@@ -53,7 +53,7 @@ public class GenerTimeStamp {
 	public static String pickYearMonthDay(int year, Timestamp ts){
 		Calendar c = Calendar.getInstance();
 		c.setTime(ts);
-		return String.format("%d%d%d", year, c.get(Calendar.MONTH)+1, c.get(Calendar.DATE));
+		return String.format("%d%02d%02d", year, c.get(Calendar.MONTH)+1, c.get(Calendar.DATE));
 	}
 	
 	public static int fetchYearByStep(int step){
@@ -103,11 +103,11 @@ public class GenerTimeStamp {
 	}
 	/**
 	 * <p>
-	 * Title: main<／p>
+	 * Title: main<锛弍>
 	 * <p>
 	 * Description:
 	 * 
-	 * <／p>
+	 * <锛弍>
 	 * 
 	 * @param args
 	 */
@@ -120,9 +120,12 @@ public class GenerTimeStamp {
 		String str2 = pickDateStr(timestamp);
 		System.out.println(str2);
 		
-		String dateStr1 = "2018-08-09 00:00:00";
+		String dateStr1 = "2018-08-19 01:00:00";
 		Timestamp timestamp2 = Timestamp.valueOf(dateStr1);
 		System.out.println(timestamp2);
+		
+		String pickYearMonth = pickYearMonthDay(2000, timestamp2);
+		System.out.println(pickYearMonth);
 	}
 
 }

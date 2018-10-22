@@ -464,18 +464,18 @@ public class ReportUtil {
            return null;
        } 
    }
-   public static class Area_Yield {  
+   public static class Area {  
 	    private String name;  
 	    private String code;  
 	    private String value;
-	    public Area_Yield(String name, String code, String value) {  
+	    public Area(String name, String code, String value) {  
 	        super();  
 	        this.name = name;  
 	        this.code = code;  
 	        this.value = value;  
 	    }  
 	      
-	    public Area_Yield() {  
+	    public Area() {  
 	        super();  
 	    }  
 	    public void setName(String name)
@@ -503,6 +503,57 @@ public class ReportUtil {
 	    	return this.value;
 	    }
 	//生成set和get方法,此处省略  
+	}
+   public static class Yield {  
+	    private String name;  
+	    private String code;  
+	    private String yield;//单产
+	    private String gross;//总产
+	    public Yield(String name, String code, String yield,String gross) {  
+	        super();  
+	        this.name = name;  
+	        this.code = code;  
+	        this.yield = yield;  
+	        this.gross = gross;
+	    }  
+	      
+	    public Yield() {  
+	        super();  
+	    }  
+	    public void setName(String name)
+	    {
+	    	this.name = name;
+	    }
+	    public String getName()
+	    {
+	    	return this.name;
+	    }
+	    public void setCode(String code)
+	    {
+	    	this.code = code;
+	    }
+	    public String getCode()
+	    {
+	    	return this.code;
+	    }
+	   
+	//生成set和get方法,此处省略  
+
+		public String getYield() {
+			return yield;
+		}
+
+		public void setYield(String yield) {
+			this.yield = yield;
+		}
+
+		public String getGross() {
+			return gross;
+		}
+
+		public void setGross(String gross) {
+			this.gross = gross;
+		}
 	}
    public static class Drought_Growth {  
 	    private String name;  
@@ -602,16 +653,34 @@ public class ReportUtil {
        }  
 		return list;
    }
-   public static List<Area_Yield> getArea_Yield(String staData)
+   public static List<Area> getArea(String staData)
    {
 	   JSONArray  Area_YieldArray=JSONArray.fromObject(staData);
 	   
-	   List<Area_Yield> list = new ArrayList<Area_Yield>();
+	   List<Area> list = new ArrayList<Area>();
 	// JSONArray的遍历  
        for (int i = 0; i < Area_YieldArray.size(); i++) {  
            JSONObject jsonObject2 = Area_YieldArray.getJSONObject(i);  
            //Area area = (Area)JSONObject.toBean(jsonObject2, Area.class); 
-           Area_Yield yield = new Area_Yield(jsonObject2.getString("name"),jsonObject2.getString("code"),Num2EnFormat(jsonObject2.getString("value")));
+           Area yield = new Area(jsonObject2.getString("name"),jsonObject2.getString("code"),Num2EnFormat(jsonObject2.getString("value")));
+           //System.out.println(area);  
+           list.add(yield);
+       }  
+		return list;
+   }
+   public static List<Yield> getYield(String staData)
+   {
+	   JSONArray  Area_YieldArray=JSONArray.fromObject(staData);
+	   
+	   List<Yield> list = new ArrayList<Yield>();
+	// JSONArray的遍历  
+       for (int i = 0; i < Area_YieldArray.size(); i++) {  
+           JSONObject jsonObject2 = Area_YieldArray.getJSONObject(i);  
+           //Area area = (Area)JSONObject.toBean(jsonObject2, Area.class); 
+           Yield yield = new Yield(jsonObject2.getString("name"),
+        		   jsonObject2.getString("code"),
+        		   jsonObject2.getJSONArray("value").getString(0),
+        		   Num2EnFormat(jsonObject2.getJSONArray("value").getString(1)));
            //System.out.println(area);  
            list.add(yield);
        }  
