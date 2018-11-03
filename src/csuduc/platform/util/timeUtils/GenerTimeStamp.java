@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 /**  
  * 鍒涘缓鏃堕棿锛�2015骞�11鏈�9鏃� 涓嬪崍4:50:02  
@@ -54,6 +55,12 @@ public class GenerTimeStamp {
 		Calendar c = Calendar.getInstance();
 		c.setTime(ts);
 		return String.format("%d%02d%02d", year, c.get(Calendar.MONTH)+1, c.get(Calendar.DATE));
+	}
+	
+	public static String pickMonthDay(Timestamp ts){
+		Calendar c = Calendar.getInstance();
+		c.setTime(ts);
+		return String.format("%02d%02d",  c.get(Calendar.MONTH)+1, c.get(Calendar.DATE));
 	}
 	
 	public static int fetchYearByStep(int step){
@@ -100,6 +107,15 @@ public class GenerTimeStamp {
 	
 	public static Timestamp DateKeyToTimestamp(String datekey){
 		return Timestamp.valueOf(String.format("%s 00:00:00", datekey));
+	}
+	
+	public static Integer dayNumOfYear(Timestamp st){
+		if (Objects.isNull(st)) {
+			return 0;
+		}
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(st);
+		return cal.get(Calendar.DAY_OF_YEAR);
 	}
 	/**
 	 * <p>
