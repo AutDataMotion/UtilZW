@@ -93,6 +93,21 @@ final public class ComUtil {
 	public static boolean notNullAndZero(Long i) {
 		return Objects.nonNull(i) && 0 != i;
 	}
+	
+	public static boolean haveEmpty(Object ... objs) {
+		
+		if (null == objs) {
+			return true;
+		}
+		
+		for (Object object : objs) {
+			if (null == object) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 
 	public static void main(String[] args) {
 		Integer i1 = 0;

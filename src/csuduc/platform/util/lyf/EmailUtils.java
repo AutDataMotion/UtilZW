@@ -219,6 +219,19 @@ public class EmailUtils {
 	    	   return getRadSix();
 	   } 
 	   
+	private static Random random = new Random();
+	public static String getRadCode() {
+		int randomNum = random.nextInt(1000000);
+        String randomCode = String.format("%06d", randomNum);
+		return randomCode;
+	}
+	
+	public static void main(String[] args) {
 		
+		System.out.println(getRadCode());
+		System.out.println(getRadCode());
+		System.out.println(getRadCode());
+		
+	}
 		
 }

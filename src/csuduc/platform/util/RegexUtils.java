@@ -23,7 +23,7 @@ public class RegexUtils {
      * @return 验证成功返回true，验证失败返回false
      */ 
     public static boolean checkEmail(String email) { 
-        String regex = "\\w+@\\w+\\.[a-z]+(\\.[a-z]+)?"; 
+        String regex = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$"; 
         return Pattern.matches(regex, email); 
     } 
      
@@ -52,7 +52,7 @@ public class RegexUtils {
      * @return 验证成功返回true，验证失败返回false
      */ 
     public static boolean checkMobile(String mobile) { 
-        String regex = "(\\+\\d+)?1[3458]\\d{9}$"; 
+        String regex = "(\\+\\d+)?1[3456789]\\d{9}$"; 
         return Pattern.matches(regex,mobile); 
     } 
      
@@ -171,8 +171,9 @@ public class RegexUtils {
 	public static void main(String[] args) {
 		// RegexUtils.isAlphaUnderline("ddd3_dd444美丽");
 		System.out.println(RegexUtils.checkDigitAlpha("1234adsfbeDAs"));
-		System.out.println(RegexUtils.checkDigitAlpha("12345678911112345"));
-		System.out.println(RegexUtils.checkDigitAlpha("1234adsfbeDAs'"));
-		System.out.println(RegexUtils.checkDigitAlpha("1234adsfbe DAs"));
+		System.out.println(RegexUtils.checkEmail("zhongweng.hao@qq.com"));
+		System.out.println(RegexUtils.checkEmail("zhong-weng.hao@1.com"));
+		System.out.println(RegexUtils.checkEmail("zhongweng.hao.com"));
+		
 	}
 }

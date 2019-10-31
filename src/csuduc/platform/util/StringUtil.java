@@ -39,6 +39,8 @@ import org.omg.CORBA.PUBLIC_MEMBER;
  * @date 2015年11月4日
  */
 public class StringUtil {
+	
+	public final static String EMPTY_STRING = "";
 
 	public final static String getStringLikeLeft(String s) {
 		return s + "%";
