@@ -56,6 +56,18 @@ public class RegexUtils {
         return Pattern.matches(regex,mobile); 
     } 
      
+    public static Integer checkPhoneOrEmailOrID(String account) {
+    	if (checkMobile(account)) {
+			return 1;
+		}
+    	if (checkEmail(account)) {
+			return 2;
+		}
+    	if (checkIdCard(account)) {
+			return 3;
+		}
+    	return 0;
+    }
     /**
      * 验证固定电话号码
      * @param phone 电话号码，格式：国家（地区）电话代码 + 区号（城市代码） + 电话号码，如：+8602085588447
@@ -174,6 +186,9 @@ public class RegexUtils {
 		System.out.println(RegexUtils.checkEmail("zhongweng.hao@qq.com"));
 		System.out.println(RegexUtils.checkEmail("zhong-weng.hao@1.com"));
 		System.out.println(RegexUtils.checkEmail("zhongweng.hao.com"));
-		
+		System.out.println(RegexUtils.checkPhoneOrEmailOrID("zhongweng.hao.com"));
+		System.out.println(RegexUtils.checkPhoneOrEmailOrID("zhongweng.hao@qq.com"));
+		System.out.println(RegexUtils.checkPhoneOrEmailOrID("19518028007"));
+		System.out.println(RegexUtils.checkPhoneOrEmailOrID("13072719870708243x"));
 	}
 }
