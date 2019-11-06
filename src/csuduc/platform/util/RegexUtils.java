@@ -55,6 +55,16 @@ public class RegexUtils {
         String regex = "(\\+\\d+)?1[3456789]\\d{9}$"; 
         return Pattern.matches(regex,mobile); 
     } 
+    
+    public static Integer checkPhoneOrEmail(String account) {
+    	if (checkMobile(account)) {
+			return 1;
+		}
+    	if (checkEmail(account)) {
+			return 2;
+		}
+    	return 0;
+    }
      
     public static Integer checkPhoneOrEmailOrID(String account) {
     	if (checkMobile(account)) {
