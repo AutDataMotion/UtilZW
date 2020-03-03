@@ -41,6 +41,11 @@ public class RegexUtils {
         String regex = "^[a-zA-Z0-9]+$"; 
         return Pattern.matches(regex,param); 
     } 
+    
+    public static boolean checkPassportAndSoldierId(String param) { 
+        String regex = "^[a-zA-Z0-9]{3,21}$"; 
+        return Pattern.matches(regex,param); 
+    } 
      
     /**
      * 验证手机号码（支持国际格式，+86135xxxx...（中国内地），+00852137xxxx...（中国香港））
@@ -73,7 +78,7 @@ public class RegexUtils {
     	if (checkEmail(account)) {
 			return 2;
 		}
-    	if (checkIdCard(account)) {
+    	if (checkIdCard(account) || checkPassportAndSoldierId(account)) {
 			return 3;
 		}
     	return 0;
@@ -192,6 +197,9 @@ public class RegexUtils {
 
 	public static void main(String[] args) {
 		// RegexUtils.isAlphaUnderline("ddd3_dd444美丽");
+		System.out.println(RegexUtils.checkPhoneOrEmailOrID("ab72719870708243x"));
+		System.out.println(RegexUtils.checkPhoneOrEmailOrID("107082"));
+		
 		System.out.println(RegexUtils.checkDigitAlpha("1234adsfbeDAs"));
 		System.out.println(RegexUtils.checkEmail("zhongweng.hao@qq.com"));
 		System.out.println(RegexUtils.checkEmail("zhong-weng.hao@1.com"));
