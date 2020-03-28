@@ -89,6 +89,7 @@ public class ClassObjUtils {
 	    for(int i=0;i<fieldNames.length;i++){  
 	        value[i]=this.getFieldValueByName(fieldNames[i], o);  
 	    }  
+	    
 	    return value;  
 	   }      
 	/**
