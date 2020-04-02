@@ -220,7 +220,7 @@ public class EmailUtils {
 	   } 
 	   
 	private static Random random = new Random();
-	public static String getRadCode() {
+	public static synchronized String getRadCode() {
 		int randomNum = random.nextInt(1000000);
         String randomCode = String.format("%06d", randomNum);
 		return randomCode;
